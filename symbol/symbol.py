@@ -13,7 +13,7 @@ class VarSymbol(Symbol):
         self.__set_value(value)
 
     def __str__(self):
-        return "<Var(name='{name}', type='{type}', value='{value}'>".format(
+        return "<Var(name='{name}', type='{type}', value='{value}')>".format(
             name=self.name,
             type=self.type,
             value=self.__get_value()
@@ -36,7 +36,7 @@ class ValSymbol(Symbol):
         self.__value = value
 
     def __str__(self):
-        return "<Val(name='{name}', type='{type}', value='{value}'>".format(
+        return "<Val(name='{name}', type='{type}', value='{value}')>".format(
             name=self.name,
             type=self.type,
             value=self.__get_value()
@@ -61,7 +61,7 @@ class TypeSymbol(Symbol):
         super().__init__(name)
 
     def __str__(self):
-        return "<Type(name='{name}'>".format(
+        return "<Type(name='{name}')>".format(
             name=self.name
         )
 
@@ -73,7 +73,7 @@ class BuiltinTypeSymbol(TypeSymbol):
         super().__init__(name)
 
     def __str__(self):
-        return "<BuiltinType(name='{name}'>".format(
+        return "<BuiltinType(name='{name}')>".format(
             name=self.name
         )
 
@@ -87,7 +87,7 @@ class FunctionSymbol(Symbol):
         self.body = body
 
     def __str__(self):
-        return "<Function(name='{name}', type='{type}', params={params}, body={body}>".format(
+        return "<Function(name='{name}', type='{type}', params={params}, body={body})>".format(
             name=self.name,
             type=self.type,
             params=self.params,
@@ -126,11 +126,11 @@ class SymbolTable(object):
     __repr__ = __str__
 
     def insert(self, symbol):
-        print('Insert: %s' % symbol.name)
+        # print('Insert: %s' % symbol.name)
         self._symbols[symbol.name] = symbol
 
     def lookup(self, name, current_scope_only=False):
-        print('Lookup: %s (Scope name: %s)' % (name, self.name))
+        # print('Lookup: %s (Scope name: %s)' % (name, self.name))
         # 'symbol' is either an instance of the Symbol class or None
         symbol = self._symbols.get(name)
 

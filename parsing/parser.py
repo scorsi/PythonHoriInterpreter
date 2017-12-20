@@ -6,7 +6,7 @@ class Parser(object):
     def __init__(self, lexer):
         self.lexer = lexer
         self.current_token = self.lexer.get_next_token()
-        print(self.current_token)
+        # print(self.current_token)
 
     def error(self):
         raise Exception('Invalid syntax')
@@ -19,7 +19,7 @@ class Parser(object):
         """
         if self.current_token.type == token_type:
             self.current_token = self.lexer.get_next_token()
-            print(self.current_token)
+            # print(self.current_token)
         else:
             self.error()
 
@@ -27,11 +27,11 @@ class Parser(object):
         """
         Eat all the next EOL
         """
-        print("Start eating EOL")
+        # print("Start eating EOL")
         self.eat(EOL)
         while self.current_token.type == EOL:
             self.eat(EOL)
-        print("Stop eating EOL")
+        # print("Stop eating EOL")
 
     def root_list(self):
         """

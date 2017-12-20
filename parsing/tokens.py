@@ -30,7 +30,7 @@ SYMBOL = "Symbol"
 ANNOTATION = "Annotation"
 
 # Numbers
-INTEGER = "Integer"
+INTEGER = "Int"
 FLOAT = "Float"
 
 # Recognized Characters

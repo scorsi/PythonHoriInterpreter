@@ -1,6 +1,5 @@
 from parsing.ast import NodeVisitor
-from symbol.stack import add_var_to_stack, add_func_to_stack
-from symbol.symbol import GlobalSymbolTable, ValSymbol, VarSymbol
+from symbol.symbol import GlobalSymbolTable, ValSymbol, VarSymbol, FunctionSymbol
 from parsing.tokens import PLUS, STAR, SLASH, MINUS
 
 
@@ -68,12 +67,12 @@ class GlobalSymbolTableCreator(NodeVisitor):
                 value = value.value
 
         if node.const is True:
-            self.global_table.insert(ValSymbol(node.symbol.name, node.type.name, value))
+            self.global_table.insert(ValSymbol(node.symbol.name, node.type, value))
         else:
-            self.global_table.insert(VarSymbol(node.symbol.name, node.type.name, value))
+            self.global_table.insert(VarSymbol(node.symbol.name, node.type, value))
 
     def visit_FunctionDeclaration(self, node):
-        add_func_to_stack(node, self.global_table)
+        self.global_table.insert(FunctionSymbol(node.symbol.name, node.type, node.arguments, node.body))
 
     def visit_Symbol(self, node):
         symbol = self.global_table.lookup(node.name)
@@ -83,4 +82,5 @@ class GlobalSymbolTableCreator(NodeVisitor):
         return symbol
 
     def visit_Type(self, node):
-        pass
+        if self.global_table.lookup(node.name) is None:
+            self.errors.append("Unknown type")
